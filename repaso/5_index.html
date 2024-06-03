@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulación de Fetch y .json() con Try-Catch y .then()- .catch()</title>
+</head>
+<body>
+    <h1>Simulación de Fetch y .json() con Manejo de Errores Combinado en JavaScript</h1>
+    <button onclick="simularFetchConJson()">Simular Fetch</button>
+
+    <script>
+        function simularFetchConJson() {
+            const jsonData = `{
+                "nombre": "Rick Sanchez",
+                "especies": "Humano",
+                "estatus": "Vivo",
+                "ubicacion": {
+                    "nombre": "Tierra",
+                    "tipo": "Planeta"
+                }
+            }`;
+
+            simularFetch(jsonData)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Datos recibidos y parseados:", data);
+
+                    // Simulamos un cambio en los datos
+                    data.ubicacion.nombre = "Marte";
+                    console.log("Datos modificados:", data);
+                })
+                .catch(error => {
+                    console.error("Error simulado en la operación fetch:", error);
+                });
+        }
+
+        function simularFetch(data) {
+            return new Promise((resolve, reject) => {
+                // Introduce una condición que pueda causar un error
+                const shouldFail = true;  // Cambia a true para simular un error
+                setTimeout(() => {
+                    try {
+                        if (shouldFail) {
+                            throw new Error("Error simulado: Falla en la conexión");
+                        } else {
+                            resolve({
+                                json: function() {
+                                    return Promise.resolve(JSON.parse(data));
+                                }
+                            });
+                        }
+                    } catch (e) {
+                        reject(e);
+                    }
+                }, 1000);  // Simular retraso de red
+            });
+        }
+    </script>
+</body>
+</html>
