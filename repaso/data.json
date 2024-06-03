@@ -1,0 +1,10 @@
+{
+    "nombre": "Rick Sanchez",
+    "especies": "Humano",
+    "estatus": "Vivo",
+    "episodios": ["S01E01", "S01E02", "S01E03"],
+    "ubicacion": {
+        "nombre": "Tierra",
+        "tipo": "Planeta"
+    }
+}
